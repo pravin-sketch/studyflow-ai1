@@ -12,7 +12,7 @@ const features = [
   },
   {
     icon: <Code2 className="w-7 h-7" />,
-    title: "Coding Expert (GPT OSS 120B)",
+    title: "Coding Expert (LLaMA 3.3 70B)",
     desc: "For programming, algorithms, data structures, and computer science topics. Includes syntax highlighting and code explanation.",
     bg: "bg-green-50 border-green-100",
     iconBg: "bg-green-100",
@@ -20,7 +20,7 @@ const features = [
   },
   {
     icon: <FlaskConical className="w-7 h-7" />,
-    title: "STEM Specialist (LLaMA 4 Maverick)",
+    title: "STEM Specialist (LLaMA 3.3 70B)",
     desc: "Optimized for biology, chemistry, physics, and mathematics. Step-by-step problem solving and scientific explanations.",
     bg: "bg-purple-50 border-purple-100",
     iconBg: "bg-purple-100",
@@ -36,7 +36,7 @@ const features = [
   },
   {
     icon: <Coffee className="w-7 h-7" />,
-    title: "Casual Assistant (GPT OSS 20B)",
+    title: "Casual Assistant (LLaMA3 8B)",
     desc: "Friendly conversational AI for everyday questions, creative writing, and general chat.",
     bg: "bg-orange-50 border-orange-100",
     iconBg: "bg-orange-100",

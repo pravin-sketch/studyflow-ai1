@@ -364,6 +364,56 @@ def get_user_profile():
     })
 
 
+@app.route('/users/profile', methods=['GET'])
+def get_user_profile():
+    """Full user profile with chat sessions and documents."""
+    email = request.args.get('email')
+    if not email:
+        return jsonify({"status": "error", "message": "email required"}), 400
+    user = User.query.filter_by(email=email).first()
+    if not user:
+        return jsonify({"status": "error", "message": "User not found"}), 404
+
+    # Get chat sessions with messages
+    chat_sessions = []
+    for s in ChatSession.query.filter_by(user_id=user.id).order_by(ChatSession.created_at.desc()).all():
+        msgs = ChatMessage.query.filter_by(session_id=s.id).order_by(ChatMessage.created_at).all()
+        chat_sessions.append({
+            "id": s.id,
+            "title": s.title,
+            "message_count": len(msgs),
+            "created_at": s.created_at.isoformat() if s.created_at else None,
+            "last_message_at": msgs[-1].created_at.isoformat() if msgs and msgs[-1].created_at else None,
+            "messages": [{"role": m.role, "content": m.content, "created_at": m.created_at.isoformat() if m.created_at else None} for m in msgs],
+        })
+
+    # Get documents
+    docs = Document.query.filter_by(user_id=user.id).order_by(Document.uploaded_at.desc()).all()
+    documents = [{
+        "id": d.id,
+        "filename": d.filename,
+        "file_type": d.file_type,
+        "file_size": d.file_size,
+        "uploaded_at": d.uploaded_at.isoformat() if d.uploaded_at else None,
+    } for d in docs]
+
+    return jsonify({
+        "status": "success",
+        "user": {
+            "id": user.id,
+            "email": user.email,
+            "created_at": user.created_at.isoformat() if user.created_at else None,
+            "ai_usage_count": user.ai_usage_count,
+            "ai_tokens_used": user.ai_tokens_used,
+            "is_blocked": user.is_blocked,
+            "total_sessions": len(chat_sessions),
+            "total_documents": len(documents),
+        },
+        "chat_sessions": chat_sessions,
+        "documents": documents,
+    })
+
+
 @app.route('/users/me/status', methods=['GET'])
 def get_user_status():
     """Lightweight endpoint to check if user is still active/blocked.

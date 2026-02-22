@@ -100,9 +100,7 @@ export default function Profile() {
   const fetchProfile = async () => {
     setLoading(true);
     try {
-      const res = await fetch(`${API_BASE}/users/profile?email=${encodeURIComponent(email!)}`, {
-        credentials: "include",
-      });
+      const res = await fetch(`${API_BASE}/users/profile?email=${encodeURIComponent(email!)}`);
       const data = await res.json();
       if (data.status === "success") {
         setProfile(data.user);

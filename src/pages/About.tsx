@@ -9,10 +9,10 @@ const stats = [
 ];
 
 const models = [
-  { icon: <Brain className="w-5 h-5" />, name: "LLaMA 3.3 70B", use: "General Q&A & academics", iconBg: "bg-blue-100", iconColor: "text-blue-600", border: "border-blue-100", bg: "bg-blue-50" },
-  { icon: <Code2 className="w-5 h-5" />, name: "GPT OSS 120B", use: "Programming & Computer Science", iconBg: "bg-green-100", iconColor: "text-green-600", border: "border-green-100", bg: "bg-green-50" },
-  { icon: <FlaskConical className="w-5 h-5" />, name: "LLaMA 4 Maverick", use: "Science, Biology, Math", iconBg: "bg-purple-100", iconColor: "text-purple-600", border: "border-purple-100", bg: "bg-purple-50" },
-  { icon: <Coffee className="w-5 h-5" />, name: "GPT OSS 20B", use: "Casual daily conversation", iconBg: "bg-orange-100", iconColor: "text-orange-600", border: "border-orange-100", bg: "bg-orange-50" },
+  { icon: <Brain className="w-5 h-5" />, name: "LLaMA 3.3 70B Versatile", use: "General Q&A & academics", iconBg: "bg-blue-100", iconColor: "text-blue-600", border: "border-blue-100", bg: "bg-blue-50" },
+  { icon: <Code2 className="w-5 h-5" />, name: "LLaMA 3.3 70B (Coding)", use: "Programming & Computer Science", iconBg: "bg-green-100", iconColor: "text-green-600", border: "border-green-100", bg: "bg-green-50" },
+  { icon: <FlaskConical className="w-5 h-5" />, name: "LLaMA 3.3 70B (STEM)", use: "Science, Biology, Math", iconBg: "bg-purple-100", iconColor: "text-purple-600", border: "border-purple-100", bg: "bg-purple-50" },
+  { icon: <Coffee className="w-5 h-5" />, name: "LLaMA3 8B", use: "Casual daily conversation", iconBg: "bg-orange-100", iconColor: "text-orange-600", border: "border-orange-100", bg: "bg-orange-50" },
 ];
 
 const values = [
