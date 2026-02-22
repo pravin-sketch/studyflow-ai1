@@ -45,16 +45,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         forceBlockLogout(email);
         return;
       }
-      // User not found in DB (e.g. DB was reset) — force re-login
-      if (res.status === 404 || data.status === 'error') {
-        stopPolling();
-        localStorage.removeItem('authToken');
-        localStorage.removeItem('userEmail');
-        localStorage.removeItem('userId');
-        setIsAuthenticated(false);
-        setUserEmail(null);
-        window.location.href = '/login?session_expired=1';
-      }
+      // Only log out if explicitly blocked — ignore 404/errors (DB may be resetting)
+      // This prevents false logouts during Railway redeploys
     } catch { /* network error — don't log out on network failures */ }
   };
 
