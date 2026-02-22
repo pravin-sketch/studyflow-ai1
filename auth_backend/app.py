@@ -9,23 +9,12 @@ import io
 app = Flask(__name__)
 
 import os as _os
-_allowed_origins = [
-    "http://localhost:8080",
-    "http://localhost:3000",
-    "http://127.0.0.1:3000",
-    "http://localhost:5173",
-]
-# Allow Render frontend URL from env var
-_frontend_url = _os.environ.get("FRONTEND_URL", "")
-if _frontend_url:
-    _allowed_origins.append(_frontend_url)
-
+# In production allow all origins — lock down later with specific URLs
 CORS(app, resources={
     r"/*": {
-        "origins": _allowed_origins,
+        "origins": "*",
         "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
         "allow_headers": ["Content-Type", "Authorization", "X-User-Email"],
-        "supports_credentials": True
     }
 })
 
