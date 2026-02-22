@@ -26,8 +26,21 @@ CORS(app, resources={
 })
 
 import os
+
+def get_db_uri():
+    db_url = os.environ.get('DATABASE_URL', '')
+    if db_url:
+        # Railway PostgreSQL URLs start with postgres:// — fix for SQLAlchemy
+        if db_url.startswith('postgres://'):
+            db_url = db_url.replace('postgres://', 'postgresql://', 1)
+        return db_url
+    # Use persistent volume if available, otherwise local SQLite
+    if os.path.isdir('/data'):
+        return 'sqlite:////data/users.db'
+    return 'sqlite:///users.db'
+
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'your-secret-key-here')
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:////data/users.db' if os.path.exists('/data') else 'sqlite:///users.db')
+app.config['SQLALCHEMY_DATABASE_URI'] = get_db_uri()
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db.init_app(app)
