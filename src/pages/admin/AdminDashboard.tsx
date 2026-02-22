@@ -18,8 +18,7 @@ import {
   RefreshCw,
 } from "lucide-react";
 import AdminLayout from "./AdminLayout";
-
-const API_BASE = "http://localhost:5000";
+import { API_BASE } from "@/config";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 

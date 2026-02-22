@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react";
 import AdminLayout from "./AdminLayout";
+import { API_BASE } from "@/config";
 import { Eye, EyeOff, Key, Lock, CheckCircle, AlertCircle, Loader2, Save, RefreshCw } from "lucide-react";
-
-const API_BASE = "http://localhost:5000";
-const ADMIN_TOKEN = "admin-token-here";
+const ADMIN_TOKEN = localStorage.getItem("adminToken") || "";
 
 export default function AdminSettings() {
   // ── Change Password ──────────────────────────────────────────────────────
