@@ -1,6 +1,6 @@
 import React, { createContext, useState, useContext, useEffect, useRef, ReactNode } from 'react';
 
-const API_BASE = 'http://localhost:5000';
+const API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
 const POLL_INTERVAL_MS = 5000; // check every 5 seconds for real-time blocking
 
 interface AuthContextType {
