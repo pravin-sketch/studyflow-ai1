@@ -1,0 +1,31 @@
+services:
+  # ── Flask Backend ────────────────────────────────────────────────────────────
+  - type: web
+    name: studyflow-backend
+    runtime: python
+    rootDir: auth_backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app -c gunicorn.conf.py
+    envVars:
+      - key: FLASK_ENV
+        value: production
+      - key: SECRET_KEY
+        generateValue: true
+      - key: GROQ_API_KEY
+        sync: false
+      - key: GEMINI_API_KEY
+        sync: false
+
+  # ── React Frontend ───────────────────────────────────────────────────────────
+  - type: web
+    name: studyflow-frontend
+    runtime: static
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    envVars:
+      - key: VITE_API_BASE_URL
+        sync: false
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
