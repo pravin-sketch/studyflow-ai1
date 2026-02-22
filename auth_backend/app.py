@@ -9,12 +9,19 @@ import io
 app = Flask(__name__)
 
 import os as _os
-# In production allow all origins — lock down later with specific URLs
 CORS(app, resources={
     r"/*": {
-        "origins": "*",
+        "origins": [
+            "http://localhost:8080",
+            "http://localhost:3000",
+            "http://127.0.0.1:3000",
+            "http://localhost:5173",
+            "https://studyflow-frontend-production.up.railway.app",
+            _os.environ.get("FRONTEND_URL", ""),
+        ],
         "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
         "allow_headers": ["Content-Type", "Authorization", "X-User-Email"],
+        "supports_credentials": True
     }
 })
 
