@@ -326,59 +326,6 @@ def admin_get_stats():
 
 @app.route('/users/profile', methods=['GET'])
 def get_user_profile():
-    """Get profile for the logged-in user via their email in query params."""
-    email = request.args.get('email')
-    if not email:
-        return jsonify({"status": "error", "message": "email is required"}), 400
-    user = User.query.filter_by(email=email).first()
-    if not user:
-        return jsonify({"status": "error", "message": "User not found"}), 404
-
-    sessions_data = []
-    for s in user.chat_sessions:
-        msg_count = len(s.messages)
-        last_msg = s.messages[-1].created_at.isoformat() if s.messages else None
-        sessions_data.append({
-            "id": s.id,
-            "title": s.title,
-            "message_count": msg_count,
-            "created_at": s.created_at.isoformat() if s.created_at else None,
-            "last_message_at": last_msg,
-            "messages": [
-                {"role": m.role, "content": m.content, "created_at": m.created_at.isoformat() if m.created_at else None}
-                for m in s.messages
-            ]
-        })
-
-    docs_data = []
-    for d in user.documents:
-        docs_data.append({
-            "id": d.id,
-            "filename": d.filename,
-            "file_type": d.file_type,
-            "file_size": d.file_size,
-            "uploaded_at": d.uploaded_at.isoformat() if d.uploaded_at else None
-        })
-
-    return jsonify({
-        "status": "success",
-        "user": {
-            "id": user.id,
-            "email": user.email,
-            "created_at": user.created_at.isoformat() if user.created_at else None,
-            "ai_usage_count": user.ai_usage_count,
-            "ai_tokens_used": user.ai_tokens_used,
-            "is_blocked": user.is_blocked,
-            "total_sessions": len(sessions_data),
-            "total_documents": len(docs_data),
-        },
-        "chat_sessions": sessions_data,
-        "documents": docs_data,
-    })
-
-
-@app.route('/users/profile', methods=['GET'])
-def get_user_profile():
     """Full user profile with chat sessions and documents."""
     email = request.args.get('email')
     if not email:
